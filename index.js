@@ -18,6 +18,7 @@ app.use(
   basicAuth({
     users: {
       admin: "desafio",
+      user: "2323",
       "giovanabetinabarbosa@gmail.com": "ZjRxDsNQt4",
       "ggconceicao@gmail.com": "MRalkmBOJq",
       "franvieira@gmail.com": "kW1bnjci70",
@@ -27,8 +28,9 @@ app.use(
   })
 );
 
-app.use("/users", autorizarUser(), usersRouter);
-app.use("/news", autorizarAdmin(), newsRouter);
+app.use("/login", autorizarUser(), usersRouter);
+app.use("/users", autorizarAdmin(), usersRouter);
+app.use("/news", autorizarUser(), newsRouter);
 app.use("/food", autorizarAdmin(), foodRouter);
 app.use("/events", autorizarAdmin(), eventsRouter);
 app.use("/documents", autorizarAdmin(), documentsRouter);

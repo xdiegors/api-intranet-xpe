@@ -4,11 +4,10 @@ async function createNews(req, res, next) {
   try {
     let news = req.body;
     if (!news.content || !news.date) {
-      throw new Error("Id, conteúdo e data são obrigatórios.");
+      throw new Error("Conteúdo e data são obrigatórios.");
     }
     news = await NewsService.createNews(news);
     res.send(news);
-    //logger.info(`POST /news - ${JSON.stringify(news)}`);
   } catch (err) {
     next(err);
   }
