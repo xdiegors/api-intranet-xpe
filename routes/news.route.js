@@ -1,14 +1,14 @@
 import express from "express";
 import NewsController from "../controllers/news.controller.js";
-import { autorizarAdmin, autorizarUser } from "../utils/autenticar.js";
+import verifyJWT from "../utils/autenticar.js";
 
 const router = express.Router();
 
 // news
-router.post("/", autorizarAdmin(), NewsController.createNews);
-router.get("/", NewsController.getAllNews);
+router.post("/", NewsController.createNews);
+router.get("/", verifyJWT, NewsController.getAllNews);
 router.get("/:id", NewsController.getNewsById);
-router.delete("/:id", autorizarAdmin(), NewsController.deleteNews);
-router.put("/", autorizarAdmin(), NewsController.updateNews);
+router.delete("/:id", NewsController.deleteNews);
+router.put("/", NewsController.updateNews);
 
 export default router;

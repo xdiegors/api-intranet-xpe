@@ -1,39 +1,24 @@
 import express from "express";
 import cors from "cors";
-import basicAuth from "express-basic-auth";
 
 import usersRouter from "./routes/user.route.js";
+import loginRouter from "./routes/login.route.js";
 import newsRouter from "./routes/news.route.js";
 import foodRouter from "./routes/food.route.js";
 import eventsRouter from "./routes/event.route.js";
 import documentsRouter from "./routes/document.route.js";
-import { autorizarAdmin, autorizarUser } from "./utils/autenticar.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use(
-  basicAuth({
-    users: {
-      admin: "desafio",
-      user: "2323",
-      "giovanabetinabarbosa@gmail.com": "ZjRxDsNQt4",
-      "ggconceicao@gmail.com": "MRalkmBOJq",
-      "franvieira@gmail.com": "kW1bnjci70",
-      "ssarahcarolinadaconceicao@gmail.com": "54bOsJjloe",
-      "vvitormartinpinto@gmail.com": "GGh0SmQ5Wo",
-    },
-  })
-);
-
-app.use("/login", autorizarUser(), usersRouter);
-app.use("/users", autorizarAdmin(), usersRouter);
-app.use("/news", autorizarUser(), newsRouter);
-app.use("/food", autorizarAdmin(), foodRouter);
-app.use("/events", autorizarAdmin(), eventsRouter);
-app.use("/documents", autorizarAdmin(), documentsRouter);
+app.use("/login", loginRouter);
+app.use("/users", usersRouter);
+app.use("/news", newsRouter);
+app.use("/food", foodRouter);
+app.use("/events", eventsRouter);
+app.use("/documents", documentsRouter);
 
 // app.use("/livro", livrosRouter);
 

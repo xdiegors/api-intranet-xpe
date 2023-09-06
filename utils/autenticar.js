@@ -1,37 +1,20 @@
-function autorizarAdmin() {
-  return (req, res, next) => {
-    if (req.auth.user) {
-      if (req.auth.user == "admin") {
-        next(); // libera o acesso desses roles
-      } else {
-        res.status(403).send("Usuário não autorizado");
-      }
-    } else {
-      res.status(403).send("Usuário não encontrado");
-    }
-  };
+import jwt from "jsonwebtoken";
+
+function verifyJWT(req, res, next) {
+  const token = req.headers["x-access-token"];
+  if (!token)
+    return res.status(401).json({ auth: false, message: "No token provided." });
+
+  jwt.verify(token, process.env.TOKEN_SECRET, function (err, decoded) {
+    if (err)
+      return res
+        .status(500)
+        .json({ auth: false, message: "Failed to authenticate token." });
+
+    // se tudo estiver ok, salva no request para uso posterior
+    req.userId = decoded.id;
+    next();
+  });
 }
 
-// buscar os usuários
-
-function autorizarUser() {
-  return (req, res, next) => {
-    if (req.auth.user === "user") {
-      res.send("user");
-      // next(); // libera o acesso de usuarios
-    } else {
-      res.status(401).send("Não permitido");
-    }
-  };
-}
-// function autorizarUser() {
-//   return (req, res, next) => {
-//     if (req.auth.user) {
-//       next(); // libera o acesso de usuarios
-//     } else {
-//       res.status(401).send("Não permitido");
-//     }
-//   };
-// }
-
-export { autorizarAdmin, autorizarUser };
+export default verifyJWT;
