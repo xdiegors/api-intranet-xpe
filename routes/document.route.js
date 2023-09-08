@@ -2,7 +2,22 @@ import express from "express";
 import DocumentController from "../controllers/document.controller.js";
 import multer from "multer";
 
-const upload = multer({ dest: "uploads/" });
+const maxSize = 2 * 1024 * 1024;
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    console.log(file.originalname);
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: maxSize },
+});
 
 const router = express.Router();
 

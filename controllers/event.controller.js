@@ -25,7 +25,7 @@ async function getAllEvent(req, res, next) {
 
 async function getEventById(req, res, next) {
   try {
-    res.send(await EventService.getEventById(req.params.id));
+    res.send(await EventService.getEventById(req.params._id));
     //logger.info("GET /event");
   } catch (err) {
     next(err);
@@ -34,7 +34,7 @@ async function getEventById(req, res, next) {
 
 async function deleteEvent(req, res, next) {
   try {
-    await EventService.deleteEvent(req.params.id);
+    await EventService.deleteEvent(req.params._id);
     res.end();
     //logger.info("DELETE /event");
   } catch (err) {

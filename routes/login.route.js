@@ -4,8 +4,7 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 //authentication
 router.post("/", (req, res, next) => {
-  //esse teste abaixo deve ser feito no seu banco de dados
-  if (req.body.user === "diego" && req.body.password === "123") {
+  if (req.body.name === "diego" && req.body.password === "123") {
     //auth ok
     const id = 1; //esse id viria do banco de dados
     const token = jwt.sign({ id }, process.env.TOKEN_SECRET, {

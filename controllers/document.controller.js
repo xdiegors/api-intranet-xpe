@@ -9,12 +9,26 @@ const createDocument = async (req, res, next) => {
       return res.status(400).send("No file uploaded.");
     }
 
-    const savedFilePath = await saveFile(file);
-    res.status(201).send(`File uploaded to ${savedFilePath}`);
+    //const savedFilePath = await saveFile(file);
+    res.status(201).send(`File uploaded!`);
   } catch (error) {
     next(error);
   }
 };
+
+// const createDocument = async (req, res, next) => {
+//   try {
+//     const file = req.file;
+//     if (!file) {
+//       return res.status(400).send("No file uploaded.");
+//     }
+
+//     const savedFilePath = await saveFile(file);
+//     res.status(201).send(`File uploaded to ${savedFilePath}`);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 // async function createDocument(req, res, next) {
 //   try {
