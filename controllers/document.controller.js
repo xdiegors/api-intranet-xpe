@@ -1,6 +1,10 @@
 import DocumentService from "../services/document.service.js";
 import upload from "../utils/multer.config.js";
 import saveFile from "../repositories/files.repository.js";
+import * as fs from "fs";
+import * as path from "path";
+
+//const uploadDir = path.join(__dirname, "uploads");
 
 const createDocument = async (req, res, next) => {
   try {
@@ -46,8 +50,15 @@ const createDocument = async (req, res, next) => {
 
 async function getAllDocument(req, res, next) {
   try {
-    res.send(await DocumentService.getDocument(req.query.autor_id));
-    //logger.info("GET /document");
+    fs.readdir("uploads", (err, files) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+
+      // Return the list of file names as JSON
+      res.json({ files });
+    });
   } catch (err) {
     next(err);
   }

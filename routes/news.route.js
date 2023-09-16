@@ -6,8 +6,9 @@ const router = express.Router();
 
 // news
 router.post("/", NewsController.createNews);
-router.get("/", verifyJWT, NewsController.getAllNews);
 router.get("/:id", NewsController.getNewsById);
+router.get("/", NewsController.getAllNews);
+
 router.delete("/:id", NewsController.deleteNews);
 router.put("/", NewsController.updateNews);
 

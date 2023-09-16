@@ -34,7 +34,7 @@ async function getFoodById(req, res, next) {
 
 async function deleteFood(req, res, next) {
   try {
-    await FoodService.deleteFood(req.params.id);
+    await FoodService.deleteFood(req.params._id);
     res.end();
     //logger.info("DELETE /food");
   } catch (err) {

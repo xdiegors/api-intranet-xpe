@@ -18,7 +18,7 @@ async function getNewsById(id) {
   try {
     const mongoose = await connect();
     const News = mongoose.model("News", NewsSchema);
-    const query = News.findOne({ id });
+    const query = News.findById(id);
     return await query.exec();
   } catch (err) {
     throw err;
@@ -39,7 +39,7 @@ async function deleteNews(id) {
   try {
     const mongoose = await connect();
     const News = mongoose.model("News", NewsSchema);
-    await News.deleteOne({ id });
+    await News.findByIdAndDelete(id);
   } catch (err) {
     throw err;
   }
