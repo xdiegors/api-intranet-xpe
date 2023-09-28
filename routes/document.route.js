@@ -25,7 +25,7 @@ const router = express.Router();
 router.post("/", upload.single("file"), DocumentController.createDocument);
 router.get("/", DocumentController.getAllDocument);
 router.get("/:id", DocumentController.getDocumentById);
-router.delete("/:id", DocumentController.deleteDocument);
+router.delete("/:name", DocumentController.deleteDocument);
 router.put("/", DocumentController.updateDocument);
 
 export default router;

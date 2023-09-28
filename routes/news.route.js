@@ -5,11 +5,11 @@ import verifyJWT from "../utils/autenticar.js";
 const router = express.Router();
 
 // news
-router.post("/", NewsController.createNews);
+router.post("/", verifyJWT, NewsController.createNews);
 router.get("/:id", NewsController.getNewsById);
 router.get("/", NewsController.getAllNews);
 
-router.delete("/:id", NewsController.deleteNews);
-router.put("/", NewsController.updateNews);
+router.delete("/:id", verifyJWT, NewsController.deleteNews);
+router.put("/", verifyJWT, NewsController.updateNews);
 
 export default router;

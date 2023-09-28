@@ -74,10 +74,21 @@ async function getDocumentById(req, res, next) {
 }
 
 async function deleteDocument(req, res, next) {
+  const fileName = req.params.name;
+
   try {
-    await DocumentService.deleteDocument(req.params.id);
-    res.end();
-    //logger.info("DELETE /document");
+    const filePath = `uploads/${fileName}`; // Adjust the path to your "uploads" folder
+
+    // Check if the file exists
+    if (fs.existsSync(filePath)) {
+      // Delete the file
+      fs.unlinkSync(filePath);
+      console.log(`File '${fileName}' has been deleted.`);
+      res.end();
+    } else {
+      // File not found, respond with an error status
+      res.status(404).json({ error: "File not found" });
+    }
   } catch (err) {
     next(err);
   }

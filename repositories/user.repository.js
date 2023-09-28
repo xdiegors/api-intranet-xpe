@@ -35,11 +35,11 @@ async function updateUser(username, updatedUser) {
   }
 }
 
-async function deleteUser(username) {
+async function deleteUser(id) {
   try {
     const mongoose = await connect();
     const User = mongoose.model("User", UsersSchema);
-    await User.deleteOne({ name: username });
+    await User.deleteOne({ _id: id });
   } catch (err) {
     throw err;
   }

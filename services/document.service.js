@@ -5,8 +5,8 @@ async function createDocument(document) {
   return await DocumentRepository.createDocument(document);
 }
 
-async function deleteDocument(document_id) {
-  await DocumentRepository.deleteDocument(document_id);
+async function deleteDocument(name) {
+  await DocumentRepository.deleteDocument(name);
 }
 
 async function updateDocument(document, updatedDocument) {

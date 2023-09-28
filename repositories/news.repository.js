@@ -49,7 +49,7 @@ async function getNews() {
   try {
     const mongoose = await connect();
     const News = mongoose.model("News", NewsSchema);
-    const query = News.find({});
+    const query = News.find({}).sort({ _id: -1 });
     return await query.exec();
   } catch (err) {
     throw err;
